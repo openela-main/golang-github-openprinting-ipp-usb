@@ -24,7 +24,7 @@ Requires:  pkgconfig(libusb-1.0) >= 1.0
 }
 
 Name:           %{goname}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTTP reverse proxy, backed by IPP-over-USB connection to device
 
 # Upstream license specification: BSD-2-Clause
@@ -114,6 +114,9 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
+* Fri Jan 23 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.27-4
+- rebuild to fix CVE-2025-61729
+
 * Mon Jun 09 2025 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.27-3
 - rebuild to fix CVE-2025-22871
 
