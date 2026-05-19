@@ -24,13 +24,14 @@ Requires:  pkgconfig(libusb-1.0) >= 1.0
 }
 
 Name:           %{goname}
-Release:        5%{?dist}.1
+Release:        6%{?dist}
 Summary:        HTTP reverse proxy, backed by IPP-over-USB connection to device
 
 # Upstream license specification: BSD-2-Clause
 License:        BSD-2-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
+Patch0:         ipp-usb-0.9.27-quirks-remove-redundant-condition.patch
 
 # needed for registering device on localhost
 BuildRequires:  pkgconfig(avahi-client) >= 0.7
@@ -61,6 +62,9 @@ Requires: systemd-udev
 
 %prep
 %goprep
+# golang 1.26.0 introduces mandatory redundancy check, which makes ipp-usb fail to build from source.
+# This is downstream patch, upstream fixed it by code refactoring.
+%patch -P 0 -p1 -b .redundant-cond
 
 %build
 %gobuild -o %{gobuilddir}/bin/ipp-usb %{goipath}
@@ -114,14 +118,15 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
-* Tue Apr 07 2026 Petr Dancak <pdancak@redhat.com> - 0.9.27-5.1
-- rebuilt to fix CVE-2026-25679
+* Tue Apr 07 2026 Petr Dancak <pdancak@redhat.com> - 0.9.27-6
+- rebuilt to fix CVE-2026-27137, CVE-2026-25679
+- fixed rebuild problem with redundant condition check in quirks.empty()
 
-* Mon Feb 16 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.27-5
-- rebuilt to fix CVE-2025-68121, CVE-2025-61726
+* Wed Feb 25 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.27-5
+- rebuilt to fix CVE-2025-68121 and CVE-2025-61726
 
-* Fri Jan 23 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.27-4
-- rebuild to fix CVE-2025-61729
+* Wed Feb 11 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.27-4
+- rebuilt to fix CVE-2025-61729
 
 * Mon Jun 09 2025 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.27-3
 - rebuild to fix CVE-2025-22871

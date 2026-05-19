@@ -1,0 +1,16 @@
+--- a/quirks.go
++++ b/quirks.go
+@@ -101,13 +101,12 @@ func (q *Quirks) empty() bool {
+ // empty returns true, if Quirks are actually empty
+ func (q *Quirks) empty() bool {
+ 	return !q.Blacklist &&
+ 		len(q.HTTPHeaders) == 0 &&
+-		!q.Blacklist &&
+ 		q.BuggyIppRsp == QuirksBuggyIppRspUnset &&
+ 		!q.DisableFax &&
+ 		!q.IgnoreIppStatus &&
+ 		q.InitDelay == 0 &&
+ 		q.InitReset == QuirksResetUnset &&
+ 		q.RequestDelay == 0 &&
+ 		q.UsbMaxInterfaces == 0
+ }
