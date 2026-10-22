@@ -24,7 +24,7 @@ Requires:  pkgconfig(libusb-1.0) >= 1.0
 }
 
 Name:           %{goname}
-Release:        7%{?dist}.3
+Release:        7%{?dist}.4
 Summary:        HTTP reverse proxy, backed by IPP-over-USB connection to device
 
 # Upstream license specification: BSD-2-Clause
@@ -118,6 +118,9 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
+* Wed Oct 21 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.27-7.4
+- rebuilt with golang-1.26.10-1.el10_2
+
 * Mon Aug 31 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.27-7.3
 - Rebuilt with golang-1.26.7-1.el10_2 to fix
   CVE-2026-42504,CVE-2026-33818,CVE-2026-56853,CVE-2026-56859,CVE-2026-56860,CVE-2026-56862
